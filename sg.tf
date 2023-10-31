@@ -2,8 +2,16 @@
 
 resource "aws_security_group" "lb" {
     name = "lb-sg-dev"
-    description = "Allow  http"
+    description = "Allow ssh and http"
     vpc_id = aws_vpc.vpc1.id
+
+    ingress {
+    description = "allow ssh"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
     ingress {
         description = "allow http"
@@ -25,8 +33,16 @@ resource "aws_security_group" "lb" {
 
 resource "aws_security_group" "ec2" {
     name = "web-sg-dev"
-    description = "Allow  http"
+    description = "Allow ssh and http"
     vpc_id = aws_vpc.vpc1.id
+
+    ingress {
+    description = "allow ssh"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
     ingress {
         description = "allow http"
